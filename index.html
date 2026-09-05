@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="In this website, you can make your quote, see your quote, and copy the quote.">
+<title>Quote Generator - Make your Quote</title>
+
+<style>
+body {
+background-color: #f0f2f5;
+display: flex;
+flex-directon: column;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+
+.container {
+background-color: #fff;
+border-radius: 24px;
+box-shadow: 2px 2px 3px 4px rgba(0, 0, 0, 0.1);
+padding: 10px;
+}
+
+.quote, 
+input[type="text"], 
+input:focus {
+border: 0 none !important;
+outline: 0 none !important;
+box-shadow: none !important;
+background-image: none !important;
+-webkit-appearance: none !important;
+appearance: none !important;
+field-sizing: content !important;
+font-family: "Times New Roman";
+}
+
+h2 {
+font-family: sans-serif;
+}
+
+span {
+font-family: sans-serif;
+}
+</style>
+</head>
+<body>
+<div>
+<div class="container">
+<h2>Quote Generator</h2>
+<span>Choose your quote:</span> “<input id="quote" type="text" value="My quote">”
+<br>
+<span>Generated quote:</span> <input id="output" readonly value="“My quote”">
+<button id="copyBtn">Copy</button>
+</div>
+</div>
+<script>
+const input = document.getElementById('quote');
+const output = document.getElementById('output');
+const button = document.getElementById('copyBtn');
+
+input.addEventListener('input', () => {
+output.value = `“${input.value}”`;
+});
+button.addEventListener('click', async () => {
+const text = output.value;
+
+try {
+await navigator.clipboard.writeText(text);
+    
+button.textContent = 'Copied!';
+    
+setTimeout(() => {
+button.textContent = 'Copy Text';
+}, 2000);
+
+} catch (err) {
+console.error(err);
+button.textContent = 'Failed to copy';
+}
+});
+</script>
+</body>
+</html>
